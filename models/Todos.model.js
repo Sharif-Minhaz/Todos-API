@@ -15,6 +15,17 @@ const todoSchema = new Schema({
 	},
 });
 
+todoSchema.index(
+	{
+		title: "text",
+	},
+	{
+		weights: {
+			name: 5,
+		},
+	}
+);
+
 const Todo = model("todo", todoSchema);
 
 module.exports = Todo;

@@ -12,7 +12,7 @@ exports.getAllTodosController = async (req, res, next) => {
 exports.getSingleTodoController = async (req, res, next) => {
 	const { title } = req.query;
 	try {
-		const todo = await Todo.findOne({ title });
+		const todo = await Todo.find({ $text: { $search: title } });
 		res.status(200).json(todo);
 	} catch (err) {
 		next(err);
