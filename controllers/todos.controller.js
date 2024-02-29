@@ -9,10 +9,20 @@ exports.getAllTodosController = async (req, res, next) => {
 	}
 };
 
-exports.getSingleTodoController = async (req, res, next) => {
+exports.getSearchTodosController = async (req, res, next) => {
 	const { title } = req.query;
 	try {
 		const todo = await Todo.find({ $text: { $search: title } });
+		res.status(200).json(todo);
+	} catch (err) {
+		next(err);
+	}
+};
+
+exports.getSingleTodoController = async (req, res, next) => {
+	const { id } = req.params;
+	try {
+		const todo = await Todo.findById(id);
 		res.status(200).json(todo);
 	} catch (err) {
 		next(err);
